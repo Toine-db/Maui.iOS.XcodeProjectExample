@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
+		<AssemblyName>DTEFS.App.Maui.IosBindings</AssemblyName>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>true</ImplicitUsings>
+		<IsBindingProject>true</IsBindingProject>
+		<IsTrimmable>true</IsTrimmable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ObjcBindingApiDefinition Include="ApiDefinition.cs" />
+		<ObjcBindingCoreSource Include="StructsAndEnums.cs" />
+	</ItemGroup>
+
+	<!-- For each XCode project one declaration -->
+	<ItemGroup>
+		<XcodeProject Include=".\WidgetKitProxy\WKP.xcodeproj">
+			<SchemeName>WKP</SchemeName>
+		</XcodeProject>
+	</ItemGroup>
+
+</Project>
