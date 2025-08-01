@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
-		<AssemblyName>DTEFS.App.Maui.IosBindings</AssemblyName>
+		<AssemblyName>IosBindings</AssemblyName>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>true</ImplicitUsings>
 		<IsBindingProject>true</IsBindingProject>

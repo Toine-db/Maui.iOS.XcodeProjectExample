@@ -1,24 +1,51 @@
-﻿namespace IosBindings.UiTests
+﻿using System.Text;
+
+namespace IosBindings.UiTests
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
         public MainPage()
         {
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object? sender, EventArgs e)
+        private async void OnCounterClicked(object? sender, EventArgs e)
         {
-            count++;
+            string widgetName = "MyCustomWidget";
+            var messageBuilder = new StringBuilder();
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
+            try
+            {
+#if IOS
+                var widgetCenterProxy = new iOSBindings.WidgetCenterProxy();
+                widgetCenterProxy.ReloadTimeLinesOfKind(widgetName);
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
+                widgetCenterProxy.GetCurrentConfigurationsWithCompletion((configurations) =>
+                {
+                    foreach (var config in configurations)
+                    {
+                        messageBuilder.AppendLine($"Widget Kind: {config.Kind}, Family: {config.Family}");
+                    }
+                });
+#elif MACCATALYST
+                var widgetCenterProxy = new iOSBindings.WidgetCenterProxy();
+                widgetCenterProxy.ReloadTimeLinesOfKind(widgetName);
+
+                widgetCenterProxy.GetCurrentConfigurationsWithCompletion((configurations) =>
+                {
+                    foreach (var config in configurations)
+                    {
+                        messageBuilder.AppendLine($"Widget Kind: {config.Kind}, Family: {config.Family}");
+                    }
+                });
+#endif
+
+                await DisplayAlert("Refresh Widget", $"Request to refresh widget {widgetName} has been send. {Environment.NewLine}{messageBuilder}", "OK");
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"Failed to refresh widget {widgetName}: {ex.Message}", "OK");
+            }
         }
     }
 }
