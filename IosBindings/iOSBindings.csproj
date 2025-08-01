@@ -7,6 +7,9 @@
 		<ImplicitUsings>true</ImplicitUsings>
 		<IsBindingProject>true</IsBindingProject>
 		<IsTrimmable>true</IsTrimmable>
+
+		<_RequiresMacConnection>true</_RequiresMacConnection>
+
 	</PropertyGroup>
 
 	<ItemGroup>
